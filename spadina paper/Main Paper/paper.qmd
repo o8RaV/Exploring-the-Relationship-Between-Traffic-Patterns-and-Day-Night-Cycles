@@ -1,0 +1,47 @@
+---
+title: ""
+author: 
+  - Raghav Kanda
+thanks: ""
+date: 11 March 2024
+date-format: long
+abstract: ""
+format: pdf
+number-sections: true
+bibliography: refer.bib
+---
+
+# Table of Contents
+
+- Table of Contents
+
+- Introduction
+
+- Data
+
+- Model
+
+- Results
+
+- Discussion
+
+- References
+
+# Introduction
+
+# Data
+
+# Model
+
+# Results
+
+# Discussion
+
+# References
+
+# References
+
+```
+{bibliography}
+```
+
