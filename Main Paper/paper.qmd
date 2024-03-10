@@ -2,7 +2,7 @@
 title: "Exploring the Relationship Between Traffic Patterns and Day-Night Cycles: A Logistic Regression Analysis"
 author: 
   - Raghav Kanda
-thanks: ""
+thanks: "Code and Data are available at: https://github.com/o8RaV/Exploring-the-Relationship-Between-Traffic-Patterns-and-Day-Night-Cycles"
 date: 11 March 2024
 date-format: long
 abstract: "This paper investigates the interplay between traffic patterns and day-night cycles using logistic regression analysis. By analyzing data collected on the number of cars observed on a specific road segment and corresponding timestamps indicating day or night, we aim to elucidate how traffic density affects the likelihood of it being daytime. Our findings indicate a significant positive correlation between traffic volume and the probability of daytime, suggesting that higher traffic volumes are associated with increased daylight hours. These insights have implications for various domains, including urban planning, transportation management, and public safety."
@@ -146,7 +146,7 @@ Overall, these findings affirm the suitability of the logistic regression model 
 
 ## Visualization
 
-The plot below illustrates the predicted probabilities of it being day based on the number of cars observed. The x-axis represents the number of cars seen, while the y-axis shows the estimated probability it is day. Points are colored red if they correspond to daytime observations and blue if they correspond to nighttime observations. Visualization of predicted probabilities further corroborated this relationship, depicting a clear upward trend as traffic density increased.
+The plot below (Figure 1) illustrates the predicted probabilities of it being day based on the number of cars observed. The x-axis represents the number of cars seen, while the y-axis shows the estimated probability it is day. Points are colored red if they correspond to daytime observations and blue if they correspond to nighttime observations. Visualization of predicted probabilities further corroborated this relationship, depicting a clear upward trend as traffic density increased.
 
 ```{R}
 #| echo: false

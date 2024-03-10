@@ -1,0 +1,48 @@
+Day or Night Logistic Regression Model Datasheet
+Overview:
+This datasheet provides comprehensive information about the dataset and logistic regression model used to predict whether it's day or night based on the number of cars observed.
+
+Basic Information:
+Dataset Name: Day or Night Logistic Regression Dataset
+Description: Dataset containing information about the number of cars observed and whether it's day or night.
+Purpose: To build a logistic regression model to predict whether it's day or night based on the number of cars observed.
+Source:
+Data Generation: Synthetic data generated for demonstration purposes.
+Dataset Characteristics:
+Variables:
+
+num_cars: Number of cars observed.
+noise: Random noise.
+is_day: Binary variable indicating if it's day (1) or night (0).
+Data Type:
+
+num_cars: Integer
+noise: Numeric (Continuous)
+is_day: Binary (0 or 1)
+Data Format: DataFrame
+
+Size:
+
+1000 records/observations
+Model Information:
+Model Name: Day or Night Logistic Regression Model
+Purpose: To predict whether it's day or night based on the number of cars observed.
+Algorithm: Logistic Regression
+Dependent Variable: is_day
+Predictors: num_cars
+Family: Binomial (Binary logistic regression)
+Model Evaluation:
+Performance Metric: N/A (Demonstration purposes only)
+Data Preprocessing:
+Data Cleaning: No cleaning required (Synthetic data)
+Feature Engineering: None
+Model Training:
+Algorithm: Generalized Linear Model (glm) from stats library in R
+Training Data: Entire dataset
+Model Evaluation:
+Evaluation Metric: N/A (Demonstration purposes only)
+Model Parameters:
+Slope Estimates: Provided in the script output
+Usage Restrictions:
+License: N/A (Demonstration purposes only)
+Usage Restrictions: Free for educational and non-commercial purposes
