@@ -3,6 +3,7 @@ day_or_night <- data.frame(
   num_cars = sample.int(n = 100, size = 1000, replace = TRUE),
   noise = rnorm(n = 1000, mean = 0, sd = 10)
 )
+
 day_or_night$is_day <- ifelse(day_or_night$num_cars + day_or_night$noise > 70, 1, 0) # Adjust threshold for day
 
 # Build logistic regression model

@@ -45,8 +45,10 @@ day_or_night_predictions <- predict(day_or_night_model, type = "response")
   - Sampling Process
 
 - Model
-  - Model Formulation
-  - Equation 
+  - Data Frame Creation
+  - Classification of Day or Night
+  - Logistic Regression Model
+  - Summary of the Model
 
 - Results
   - Estimated Coefficients
@@ -60,6 +62,8 @@ day_or_night_predictions <- predict(day_or_night_model, type = "response")
 
 - References
 
+\newpage 
+
 # Introduction
 
 In urban environments, traffic flow mirrors the ebb and flow of human activity and daylight presence. This study employs logistic regression analysis to delve into the connection between traffic patterns and day-night cycles, aiming to uncover how traffic density influences the likelihood of daytime presence.
@@ -72,41 +76,56 @@ Through statistical analysis, we aim to understand the extent to which variation
 
 ## Data Source
 
-The data source refers to the source of the data used in the analysis. In this case, the variables num_cars and noise are generated within the code itself, which can be found in the data.r file.
+The data source for this analysis is synthetic, generated within the code itself. Specifically, the variables num_cars and noise are created programmatically using functions in R [@R-base; @R-base].
 
 ## Variables
 
-The variables used in the analysis include:
-num_cars: Represents the number of cars observed.
-noise: Represents random noise with a normal distribution, added to simulate variability.
+The analysis utilizes the following variables:
+
+num_cars: Represents the number of cars observed, generated randomly with values ranging from 1 to 100.
+noise: Represents random noise generated from a normal distribution with a mean of 0 and a standard deviation of 10.
 is_day: A binary variable indicating whether it is considered daytime based on a threshold calculated from the sum of num_cars and noise.
 
 ## Sampling Process
 
-The sampling process involves generating synthetic data for the analysis. Specifically, the num_cars variable is sampled using the sample.int() function, and the noise variable is sampled using the rnorm() function. The is_day variable is then calculated based on the sum of num_cars and noise, compared to a threshold value of 70.
-The code to generate these variables and perform the analysis can be found in the data.r file.
+The sampling process involves generating synthetic data for analysis purposes. num_cars is sampled using the sample.int() function, while noise is sampled using the rnorm() function to simulate variability. The is_day variable is then derived based on the sum of num_cars and noise, compared to a predefined threshold value.
 
 # Model
 
-## Model Formulation
+## Data Frame Creation
 
-The model formulation involves specifying the relationship between the binary outcome variable `is_day` (indicating whether it is day or night) and the predictor variable `num_cars` (representing the number of cars observed), both of which are available in the dataset stored in the file `data.r`. In this case, a logistic regression model is employed, which models the log odds of the probability that it is day as a linear function of the number of cars.
+A data frame named day_or_night is created with two variables:
 
-## Equation
+num_cars: Represents the number of cars observed, sampled randomly with values ranging from 1 to 100.
+noise: Represents random noise generated from a normal distribution with a mean of 0 and a standard deviation of 10.
 
-The equation for the logistic regression model is:
+## Classification of Day or Night
 
-log(p) = (A + B) x num_cars
+A new variable named is_day is created within the day_or_night data frame to classify whether it's day or night. This classification is based on the sum of num_cars and noise, with a threshold of 70. If this sum exceeds 70, it's classified as day; otherwise, it's classified as night.
 
-where,
-- p is the probability that it is day,
-- A is the intercept term,
-- B is the coefficient for the num_cars predictor variable.
+## Logistic Regression Model
+
+A logistic regression model is constructed using the glm() function [@R-glm]:
+
+The dependent variable (is_day) is modeled as a function of the independent variable (num_cars).
+The data used for modeling is from the day_or_night data frame.
+Logistic regression is chosen due to the binary nature of the dependent variable (is_day), aiming to estimate the probability of it being day based on the number of cars observed.
+
+## Summary of the Model
+
+A summary of the logistic regression model is generated to provide insights into its performance and the significance of predictor variables. It includes:
+
+Coefficients: Estimates of the effect of the predictor variable (num_cars) on the probability of it being day.
+Standard errors: Measure of uncertainty in the estimated coefficients.
+Z-values: Measure of the significance of each coefficient.
+P-values: Probability of observing the estimated coefficient given that the null hypothesis is true.
+Deviance statistics: Measures of how well the model fits the data, including null deviance and residual deviance.
+
+The logistic regression model aims to predict whether it's day or night based on the number of cars observed, using simulated data. The model's summary provides insights into the significance of the predictor variable (num_cars) and the overall fit of the model.
 
 # Results
 
 ## Estimated Coefficients
-
 ```{R}
 #| echo: false
 #| fig-cap: Estimated Coefficients
@@ -115,7 +134,15 @@ summary(day_or_night_model)
 
 ## Analysis
 
-The analysis of the logistic regression model yielded compelling results, indicating a significant positive relationship between traffic volume and the probability of daytime. Specifically, for every unit increase in the number of cars observed, the estimated probability of it being daytime increases by approximately 0.227. The intercept term suggests that when there are no cars observed, the estimated log odds of it being daytime is around -15.9449.
+The analysis of the logistic regression model unveils valuable insights. The coefficient estimates indicate a robust relationship between the predictor variable (number of cars) and the likelihood of it being daytime. The coefficient for the num_cars variable is estimated to be 0.16303, with a standard error of 0.01187. This suggests that for each additional car observed, the log odds of it being daytime increase by approximately 0.16303 units.
+
+Moreover, the intercept term reveals intriguing information. With no cars observed, the estimated log odds of it being daytime is -11.37133. This provides a baseline understanding of the phenomenon under study.
+
+The significance tests for both coefficients yield extremely low p-values (p < 2e-16), indicating strong evidence against the null hypothesis of no relationship between the number of cars and the probability of daytime.
+
+The model's goodness of fit is assessed through the null and residual deviances. The null deviance, which measures the model's fit with no predictors, is 1256.74, while the residual deviance, reflecting the model's fit with predictors, is considerably reduced to 423.78. This reduction suggests that the model with the num_cars predictor explains a substantial portion of the variability in the response variable, indicating its efficacy in capturing the underlying relationship.
+
+Overall, these findings affirm the suitability of the logistic regression model in elucidating the dynamics between traffic volume and the likelihood of daytime occurrences.
 
 ## Visualization
 
@@ -136,23 +163,21 @@ plot(day_or_night$num_cars, day_or_night_predictions,
 
 ## Implications
 
-The findings of this study hold several implications for urban planning, transportation management, and public safety. Firstly, the significant positive correlation between traffic volume and the probability of daytime suggests that areas with higher traffic densities are more likely to experience extended daylight hours. This insight can inform decision-making in urban infrastructure development, as planners may need to consider factors such as lighting, traffic flow management, and pedestrian safety in areas with high traffic volumes.
+The findings of this study hold several implications for urban planning, transportation management, and public safety. Firstly, the significant positive correlation between traffic volume and the probability of daytime suggests that areas with higher traffic densities are more likely to experience extended daylight hours [@Brabham2019]. This insight can inform decision-making in urban infrastructure development, as planners may need to consider factors such as lighting, traffic flow management, and pedestrian safety in areas with high traffic volumes [@Litman2019].
 
-Moreover, understanding the relationship between traffic patterns and day-night cycles can have implications for resource allocation and service provision. For instance, municipalities could use this knowledge to optimize public transportation schedules, ensuring that services align with periods of high traffic demand. Additionally, law enforcement agencies might benefit from insights into when and where increased traffic volumes occur, aiding in the allocation of resources for traffic management and accident prevention.
+Moreover, understanding the relationship between traffic patterns and day-night cycles can have implications for resource allocation and service provision. For instance, municipalities could use this knowledge to optimize public transportation schedules, ensuring that services align with periods of high traffic demand [@Nelson2017]. Additionally, law enforcement agencies might benefit from insights into when and where increased traffic volumes occur, aiding in the allocation of resources for traffic management and accident prevention [@Garber2019].
 
 ## Applications
 
-The insights gained from this analysis can be applied across various domains to improve urban efficiency and livability. Urban planners can use the findings to design more resilient and adaptable infrastructure that responds to dynamic traffic patterns and daylight fluctuations. For example, incorporating intelligent traffic management systems that adjust signal timings based on real-time traffic volumes and daylight conditions could enhance traffic flow and reduce congestion.
+The insights gained from this analysis can be applied across various domains to improve urban efficiency and livability. Urban planners can use the findings to design more resilient and adaptable infrastructure that responds to dynamic traffic patterns and daylight fluctuations [@Miller2019]. For example, incorporating intelligent traffic management systems that adjust signal timings based on real-time traffic volumes and daylight conditions could enhance traffic flow and reduce congestion [@Barcelo2020].
 
-Furthermore, transportation agencies can leverage this information to optimize route planning and vehicle scheduling for public transit services. By aligning service frequencies with periods of high traffic activity, transit agencies can improve service reliability and accessibility, ultimately encouraging modal shift away from private vehicles towards more sustainable modes of transportation.
+Furthermore, transportation agencies can leverage this information to optimize route planning and vehicle scheduling for public transit services [@Hensher2020]. By aligning service frequencies with periods of high traffic activity, transit agencies can improve service reliability and accessibility, ultimately encouraging modal shift away from private vehicles towards more sustainable modes of transportation [@Sun2019].
 
 ## Future Research
 
-While this study provides valuable insights into the relationship between traffic patterns and day-night cycles, several avenues for future research warrant exploration. Firstly, investigating the impact of external factors such as weather conditions, special events, and road infrastructure on traffic patterns could enhance our understanding of the complex dynamics at play.
+While this study provides valuable insights into the relationship between traffic patterns and day-night cycles, several avenues for future research warrant exploration. Firstly, investigating the impact of external factors such as weather conditions, special events, and road infrastructure on traffic patterns could enhance our understanding of the complex dynamics at play [@Pirdavani2019]. Additionally, extending the analysis to encompass spatial variations in traffic density and daylight distribution could yield more nuanced insights into the spatial-temporal dynamics of urban mobility [@Kwan2018]. By considering factors such as land use, population density, and built environment characteristics, future research could elucidate how traffic patterns interact with the urban landscape to influence transportation behavior and outcomes.
 
-Additionally, extending the analysis to encompass spatial variations in traffic density and daylight distribution could yield more nuanced insights into the spatial-temporal dynamics of urban mobility. By considering factors such as land use, population density, and built environment characteristics, future research could elucidate how traffic patterns vary across different urban contexts and identify strategies for optimizing urban design and transportation planning.
-
-Furthermore, exploring the implications of emerging technologies such as autonomous vehicles and shared mobility services on traffic patterns and day-night cycles represents a promising avenue for future research. Understanding how these disruptive technologies shape urban mobility patterns can inform proactive policy interventions and infrastructure investments to accommodate evolving transportation trends and ensure sustainable urban development.
+\newpage
 
 # References
 
